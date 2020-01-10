@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <span id="lala">
+        Hola
+    </span>
+    <button onclick="boom()">Boom</button>
+
+    <input type="text" id="nombre">
+    
+    <button onclick="submit()">Submit</button>
+    
+    <script>
+    
+    function boom(){
+
+
+        var lala = document.querySelector("#lala");
+        
+        lala.innerHTML = 'Hello World!';
+
+        lala.style.display = "none";
+
+
+
+    }
+function submit(){
+
+
+   $nombre = document.querySelector('#nombre').value;
+/*     console.log($nombre); */
+
+    if($nombre.length < 1){
+        alert('El campo no puede estar vacio');
+        return false;
+    }
+
+var formData = new FormData();
+    formData.append('nombre', $nombre);
+
+var request = new XMLHttpRequest();
+request.open("POST", "ajax/form.php");
+request.send(formData);
+request.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                var res = JSON.parse(request.responseText);
+
+                if(res.result){
+                    alert(res.nombre);
+                    document.querySelector('#nombre').value = '';
+                }
+                document.getElementById("lala").innerHTML = data.nombre;
+            }
+        };
+
+}
+
+    </script>
+</body>
+</html>
